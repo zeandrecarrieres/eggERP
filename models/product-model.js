@@ -1,11 +1,7 @@
 const mongoose = require("mongoose");
 
-const clientSchema = new mongoose.Schema({
-  type: {
-    type: String,
-    required: true,
-  },
-  register_number: {
+const productSchema = new mongoose.Schema({
+  id: {
     type: String,
     required: true,
   },
@@ -13,31 +9,36 @@ const clientSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  address: {
+  description: {
     type: String,
     required: true,
   },
-  telephone: {
+  category: {
     type: String,
     required: true,
   },
-  mobile: {
+  unit: {
     type: String,
     required: true,
   },
-  email: {
+  grade: {
     type: String,
     required: true,
   },
-  website: {
+  mult: {
     type: String,
     required: true,
   },
-  contact: {
+  quantity: {
     type: String,
     required: true,
   },
-});
+  price: {
+    type: String,
+    required: true,
+  }
+  });
+
+module.exports = mongoose.model("Product", productSchema);
 
 
-module.exports = mongoose.model("Client", clientSchema);
