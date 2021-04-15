@@ -6,7 +6,7 @@ const Transaction = require("../models/transaction-model");
 router.post("/", (req, res) => {
     const transaction = Transaction.create(req.body, (error) => {
       if (error)
-        return res.status(400).json({
+        return res.status(401).json({
           error: true,
           message: "Error: Transaction not saved, try again!",
         });
