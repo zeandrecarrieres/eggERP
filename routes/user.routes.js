@@ -78,30 +78,70 @@ router.post('/login', async (req, res)=>{
 })
 
 
+//Route Dash (Dashboard)
+
+router.get('/', async (req, res) => {
+  try {
+    //Get cookie 
+    const cookie = req.cookies['jwt']
+
+    //Cookie verification
+    const claims = await jwt.verify(cookie, 'secret')
+
+    //if cookie is invalid, send msg 401 - not authorized!
+    if(!claims) {
+      return res.status(401).semd({
+        message: 'Not Autheticated!'
+      })
+    }
+
+    //if cookie is valid, get user by Id associed
+    const user = await User.findOne({_id:claims._id})
+
+    // user {(JSON) _id,username,email,password}
+
+    // const password = {(JSON)password} && const data = {(JSON)_id,username,email}
+
+    const {password, ...data} = await user.toJSON()
+
+    // const data = {(JSON)_id, name, email}
+
+    //Send informations to authenticated user
+
+    res.data(data)
+  } catch (error) {
+      return res.status(401).send({
+        message: 'Not Authenticated!'
+      })
+  }
+})
 
 
+//Route Logout
+
+router.post('/logout', (req, res) =>{
+  res.cookie('jwt', '', {maxAge:0}) //Force Cookie time expiration (putting maxAge in 0 )
+
+  res.send({
+    message: 'User logout!'
+  })
+})
 
 
+//Route List Users - essa
 
-
-
-
-
-
-//Route List Users 
-
-router.get("/", (req, res) => {
-  User.find()
-    .then((client) => {
-      return res.json(client);
-    })
-    .catch((error) => {
-      return res.status(400)({
-        error: true,
-        message: "Registry not found!",
-      });
-    });
-});
+// router.get("/", (req, res) => {
+//   User.find()
+//     .then((client) => {
+//       return res.json(client);
+//     })
+//     .catch((error) => {
+//       return res.status(400)({
+//         error: true,
+//         message: "Registry not found!",
+//       });
+//     });
+// });
 
 //Route Edit User
 router.put("/user/:id", (req, res) => {
