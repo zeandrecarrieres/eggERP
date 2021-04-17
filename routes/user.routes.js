@@ -21,10 +21,11 @@ const jwt = require('jsonwebtoken')
 
 //Route Create User NEW
 router.post("/", async (req, res) => {
+  //preparing salt to hashe password
   const salt = await bcrypt.genSalt() 
   const hashedPassword = await bcrypt.hash(req.body.password, salt)
 
-
+  //create new user and hashe password
   const user = new User({
     type: req.body.type,
     register_number: req.body.register_number,
@@ -33,13 +34,59 @@ router.post("/", async (req, res) => {
     password: hashedPassword,
   })
 
+  //save user in MongoDB
   const result = await user.save()
 
   const { password, ...data} = await result.toJSON()
 
+  //server return after user saved.
   res.send(data)
 
 })  
+
+//Route Login
+router.post('/login', async (req, res)=>{
+    //First Step) User email verification 
+    const user = await User.findOne({email:req.body.email})
+
+    if(!user){
+      return res.status(404).send({
+        message: 'User not found!'
+      })
+    }
+
+    //Second Step) Password verification
+    if(!await bcrypt.compare(req.body.password, user.password)) {
+      return res.status(404).send({
+        message: 'Invalid Credentials'
+      })
+    }
+
+    //Third Step) Session Token Creation
+    const token = jwt.sign({_id: user._id}, "secret")
+
+    res.cookie('jwt', token, {
+      httpOnly: true,
+      maxAge: 24 * 60 * 60 * 1000 //token time expiration (1day)
+    })
+
+    res.send({
+      message: "Authentication sucess!"
+    })
+
+    console.log(token)
+})
+
+
+
+
+
+
+
+
+
+
+
 
 //Route List Users 
 
