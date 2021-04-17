@@ -1,8 +1,8 @@
 const { Router } = require('express')
 const router = require('express').Router()
-const Client = require("../models/client-model");
+const Client = require("../models/user-model")
 
-//Route Create Client
+//Route Create Client 
 router.post("/", (req, res) => {
   const client = Client.create(req.body, (error) => {
     if (error)
@@ -17,7 +17,7 @@ router.post("/", (req, res) => {
   });
 });
 
-//Route List Clients
+//Route List Clients 
 
 router.get("/", (req, res) => {
   Client.find()

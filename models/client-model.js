@@ -8,6 +8,7 @@ const clientSchema = new mongoose.Schema({
   register_number: {
     type: String,
     required: true,
+    unique: true,
   },
   name: {
     type: String,
