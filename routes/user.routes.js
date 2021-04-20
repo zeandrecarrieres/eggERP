@@ -90,7 +90,7 @@ router.get('/', async (req, res) => {
 
     //if cookie is invalid, send msg 401 - not authorized!
     if(!claims) {
-      return res.status(401).semd({
+      return res.status(401).send({
         message: 'Not Autheticated!'
       })
     }
