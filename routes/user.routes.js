@@ -108,7 +108,7 @@ router.get('/', async (req, res) => {
 
     //Send informations to authenticated user
 
-    res.data(data)
+    res.send(data)
   } catch (error) {
       return res.status(401).send({
         message: 'Not Authenticated!'

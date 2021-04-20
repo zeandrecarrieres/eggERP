@@ -1,6 +1,6 @@
 const { Router } = require('express')
 const router = require('express').Router()
-const Client = require("../models/user-model")
+const Client = require("../models/client-model")
 
 //Route Create Client 
 router.post("/", (req, res) => {

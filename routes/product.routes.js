@@ -32,6 +32,65 @@ router.post("/", (req, res) => {
       });
   });
   
+  
+  router.get('/', async (req, res) => {
+    try {
+      //Get cookie 
+      const cookie = req.cookies['jwt']
+  
+      //Cookie verification
+      const claims = await jwt.verify(cookie, 'secret')
+  
+      //if cookie is invalid, send msg 401 - not authorized!
+      if(!claims) {
+        return res.status(401).semd({
+          message: 'Not Autheticated!'
+        })
+      }
+  
+      //if cookie is valid, get user by Id associed
+      const user = await User.findOne({_id:claims._id})
+  
+      // user {(JSON) _id,username,email,password}
+  
+      // const password = {(JSON)password} && const data = {(JSON)_id,username,email}
+  
+      const {password, ...data} = await user.toJSON()
+  
+      // const data = {(JSON)_id, name, email}
+  
+      //Send informations to authenticated user
+  
+      res.data(data)
+    } catch (error) {
+        return res.status(401).send({
+          message: 'Not Authenticated!'
+        })
+    }
+  })
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   //Route Edit Product
   router.put("/:id", (req, res) => {
     const product = Product.updateOne(
