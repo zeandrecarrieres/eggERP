@@ -31,43 +31,57 @@ router.post("/", (req, res) => {
         });
       });
   });
+
+  // Route single product
+router.get('/:id', (req, res) => {
+  Product.findOne({_id : req.params.id})
+    .then((product) => {
+      return res.json(product);
+    })
+    .catch((error) => {
+      return res.status(400).send({
+        error: true,
+        message: "Registry not found!",
+      });
+    });
+});
   
   
-  router.get('/', async (req, res) => {
-    try {
-      //Get cookie 
-      const cookie = req.cookies['jwt']
+  // router.get('/', async (req, res) => {
+  //   try {
+  //     //Get cookie 
+  //     const cookie = req.cookies['jwt']
   
-      //Cookie verification
-      const claims = await jwt.verify(cookie, 'secret')
+  //     //Cookie verification
+  //     const claims = await jwt.verify(cookie, 'secret')
   
-      //if cookie is invalid, send msg 401 - not authorized!
-      if(!claims) {
-        return res.status(401).semd({
-          message: 'Not Autheticated!'
-        })
-      }
+  //     //if cookie is invalid, send msg 401 - not authorized!
+  //     if(!claims) {
+  //       return res.status(401).semd({
+  //         message: 'Not Autheticated!'
+  //       })
+  //     }
   
-      //if cookie is valid, get user by Id associed
-      const user = await User.findOne({_id:claims._id})
+  //     //if cookie is valid, get user by Id associed
+  //     const user = await User.findOne({_id:claims._id})
   
-      // user {(JSON) _id,username,email,password}
+  //     // user {(JSON) _id,username,email,password}
   
-      // const password = {(JSON)password} && const data = {(JSON)_id,username,email}
+  //     // const password = {(JSON)password} && const data = {(JSON)_id,username,email}
   
-      const {password, ...data} = await user.toJSON()
+  //     const {password, ...data} = await user.toJSON()
   
-      // const data = {(JSON)_id, name, email}
+  //     // const data = {(JSON)_id, name, email}
   
-      //Send informations to authenticated user
+  //     //Send informations to authenticated user
   
-      res.data(data)
-    } catch (error) {
-        return res.status(401).send({
-          message: 'Not Authenticated!'
-        })
-    }
-  })
+  //     res.data(data)
+  //   } catch (error) {
+  //       return res.status(401).send({
+  //         message: 'Not Authenticated!'
+  //       })
+  //   }
+  // })
   
 
 
