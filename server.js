@@ -28,7 +28,8 @@ app.use(cookieParser())
 // app.use(cors())
 app.use(cors({
   credentials:true,
-  origin: ['http://localhost:3001', 'http://localhost:3000', 'https://eggerp-frontend.herokuapp.com/']
+  origin: ['*']
+  // origin: ['http://localhost:3001', 'http://localhost:3000', 'https://eggerp-frontend.herokuapp.com/']
 }));
 app.use(express.json());
 
