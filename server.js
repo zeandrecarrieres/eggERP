@@ -25,10 +25,11 @@ mongoose.connect(process.env.MONGO_URL, {
 
 const app = express();
 app.use(cookieParser())
-app.use(cors({
-  credentials:true,
-  origin: ['http://localhost:3001', 'http://localhost:3000', 'https://eggerp-frontend.herokuapp.com/']
-}));
+app.use(cors())
+// app.use(cors({
+//   credentials:true,
+//   origin: ['http://localhost:3001', 'http://localhost:3000', 'https://eggerp-frontend.herokuapp.com/']
+// }));
 app.use(express.json());
 
 //Routes
