@@ -19,15 +19,19 @@ const userRoutes =require('./routes/user.routes')
 
 const app = express();
 app.use(cookieParser())
-app.use((req, res, next)=>{
-  res.header("Access-Control-Allow-Origin", "https://eggerp-frontend.herokuapp.com")
-  app.use(cors())
-  next()
-})
+// app.use((req, res, next)=>{
+//   res.header("Access-Control-Allow-Origin", "https://eggerp-frontend.herokuapp.com")
+//   app.use(cors())
+//   next()
+// })
 
 
+const corsOptions = {
+  origin:"https://eggerp-frontend.herokuapp.com",
+  credentials: true,
+}
 
-
+app.use(cors(corsOptions))
 
 // app.use(cors({
 //   credentials:true,
