@@ -15,7 +15,7 @@ const transactionRoutes =require('./routes/transaction.routes')
 const userRoutes =require('./routes/user.routes')
 
 //DB Connection (MongoDB)
-mongoose.connect(process.env.MONGODB_LOCAL_KEY, {
+mongoose.connect(process.env.MONGO_URL, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true,
