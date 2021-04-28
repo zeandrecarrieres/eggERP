@@ -14,12 +14,6 @@ const productRoutes =require('./routes/product.routes')
 const transactionRoutes =require('./routes/transaction.routes')
 const userRoutes =require('./routes/user.routes')
 
-//DB Connection (MongoDB)
-mongoose.connect(process.env.MONGO_URL, {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useUnifiedTopology: true,
-});
 
 
 
@@ -32,6 +26,15 @@ app.use(cors({
   // origin: ['http://localhost:3001', 'http://localhost:3000', 'https://eggerp-frontend.herokuapp.com/']
 }));
 app.use(express.json());
+
+
+//DB Connection (MongoDB)
+mongoose.connect(process.env.MONGO_URL, {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useUnifiedTopology: true,
+});
+
 
 //Routes
 app.use('/client', clientRoutes)
