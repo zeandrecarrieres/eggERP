@@ -67,7 +67,10 @@ router.post('/login', async (req, res)=>{
 
     res.cookie('jwt', token, {
       httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000 //token time expiration (1day)
+      //token time expiration (1day)
+      maxAge: 24 * 60 * 60 * 1000, 
+      secure: req.headers['x-forwarded-proto'] === 'https',
+    
     })
 
     res.send({
