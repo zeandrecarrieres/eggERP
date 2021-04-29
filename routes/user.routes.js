@@ -70,6 +70,7 @@ router.post('/login', async (req, res)=>{
       //token time expiration (1day)
       maxAge: 24 * 60 * 60 * 1000, 
       secure: req.headers['x-forwarded-proto'] === 'https',
+      sameSite: 'none',
     
     })
 
