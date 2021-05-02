@@ -19,7 +19,7 @@ app.use(cookieParser());
 
 const corsOptions = {
   // origin:"http://localhost:3000",
-  origin: ["https://nutriovosapp-frontend.herokuapp.com","https://nutriovosapp-frontend.herokuapp.com"],
+  origin: ["https://nutriovosapp-frontend.herokuapp.com","http://nutriovosapp-frontend.herokuapp.com"],
   credentials: true,
 };
 
